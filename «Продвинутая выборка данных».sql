@@ -71,7 +71,7 @@ insert into Track(title, duration, album_id)
 	('Dead of Night', 239, 3),
 	('Turn to Hate', 294, 3),
 	('My funny Valentine', 279, 1),
-	('Living myself', 250, 3)
+	('Living myself', 250, 3);
 
 insert into Collection(title, year)
 	values
@@ -114,7 +114,7 @@ where 2018 <= year and year <= 2020;
 select nickname from artist
 where nickname not like '% %';
 
-select title from track
+select distinct  title from track
 where title ilike 'мой %'
 or title ilike '% мой'
 or title ilike '% мой %'
@@ -125,13 +125,13 @@ or title ilike '% my %'
 or title ilike 'my';
 
 -- Задание 3
+select title, count(a.artist_id) from artistgenre a 
+join genre g  on a.genre_id = g.id
+group by g.title;
+
 select  count(track.id) from track 
 join albums on track.album_id = albums.id 
 where albums.year between 2019 and 2020;
-
-select title, count(track_id) from trackalbums t 
-join albums a on t.albums_id  = a.id and  a."year" between 2019 and 2020
-group by a.title;
 
 select a.title, avg(duration) from track
 join albums a on track.album_id  = a.id 
@@ -151,3 +151,7 @@ join track t on t.id = trackcollection.track_id
 join artistalbums  on t.album_id = artistalbums.albums_id 
 join artist on artist.id = artistalbums.artist_id 
 where artist.nickname = 'Buck Tick';
+
+
+
+	
